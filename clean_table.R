@@ -1,3 +1,4 @@
+
 # This code cleans the tables
 
 c(p_age1, p_age2, p_age3, p_Fem1, p_Fem2, p_Fem3, p_Nvsmk1,
