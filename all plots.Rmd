@@ -1,0 +1,418 @@
+---
+title: "All plots"
+author: "Dobgima Mofor"
+date: "2023-08-11"
+output:
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo=FALSE,
+                      fig.width=2, fig.height=2) 
+
+```
+
+
+```{r, echo= FALSE}
+library(ggplot2)
+library(tidyverse)
+library(foreign)
+library(haven)
+```
+
+
+```{r, echo= FALSE}
+respi <- read_dta("dob.dta")
+```
+
+## R Markdown
+```{r}
+# Z score for age
+Z_age1 <- respi %>% filter(gender == 1) %>% mutate(age = round(age)) %>% 
+  group_by(age) %>% select(age, z_fev1) %>% 
+  summarise(z_mean = median(z_fev1, na.rm = T),
+            z_5 = quantile(z_fev1, probs = .05, na.rm = T),
+            z_95 = quantile(z_fev1, probs = .95, na.rm = T))
+
+Z_age2 <- respi %>% filter(gender == 1) %>% mutate(age = round(age)) %>% 
+  group_by(age) %>% select(age, z_fvc) %>% 
+  summarise(z_mean = median(z_fvc, na.rm = T),
+            z_5 = quantile(z_fvc, probs = .05, na.rm = T),
+            z_95 = quantile(z_fvc, probs = .95, na.rm = T))
+
+Z_age3 <- respi %>% filter(gender == 1) %>% mutate(age = round(age)) %>% 
+  group_by(age) %>% select(age, z_fev1_fvc_ratio) %>% 
+  summarise(z_mean = median(z_fev1_fvc_ratio, na.rm = T),
+            z_5 = quantile(z_fev1_fvc_ratio, probs = .05, na.rm = T),
+            z_95 = quantile(z_fev1_fvc_ratio, probs = .95, na.rm = T))
+
+
+# Z score for height
+
+Z_height1 <- respi %>% filter(gender == 1) %>% mutate(height = round(height)) %>% 
+  group_by(height) %>% select(height, z_fev1) %>% 
+  summarise(z_mean = median(z_fev1, na.rm = T),
+            z_5 = quantile(z_fev1, probs = .05, na.rm = T),
+            z_95 = quantile(z_fev1, probs = .95, na.rm = T))
+
+Z_height2 <- respi %>% filter(gender == 1) %>% mutate(height = round(height)) %>% 
+  group_by(height) %>% select(height, z_fvc) %>% 
+  summarise(z_mean = median(z_fvc, na.rm = T),
+            z_5 = quantile(z_fvc, probs = .05, na.rm = T),
+            z_95 = quantile(z_fvc, probs = .95, na.rm = T))
+
+Z_height3 <- respi %>% filter(gender == 1) %>% mutate(height = round(height)) %>% 
+  group_by(height) %>% select(height, z_fev1_fvc_ratio) %>% 
+  summarise(z_mean = median(z_fev1_fvc_ratio, na.rm = T),
+            z_5 = quantile(z_fev1_fvc_ratio, probs = .05, na.rm = T),
+            z_95 = quantile(z_fev1_fvc_ratio, probs = .95, na.rm = T))
+
+# Z score for ethnic category
+
+Z_eth1 <- respi %>% filter(gender == 1) %>% # mutate(height = round(height)) %>% 
+  group_by(ethnicity_cat) %>% select(ethnicity_cat, z_fev1) %>% 
+  summarise(z_mean = median(z_fev1, na.rm = T),
+            z_5 = quantile(z_fev1, probs = .05, na.rm = T),
+            z_95 = quantile(z_fev1, probs = .95, na.rm = T))
+
+Z_eth2 <- respi %>% filter(gender == 1) %>% # mutate(height = round(height)) %>% 
+  group_by(ethnicity_cat) %>% select(ethnicity_cat, z_fvc) %>% 
+  summarise(z_mean = median(z_fvc, na.rm = T),
+            z_5 = quantile(z_fvc, probs = .05, na.rm = T),
+            z_95 = quantile(z_fvc, probs = .95, na.rm = T))
+
+Z_eth3 <- respi %>% filter(gender == 1) %>% mutate(height = round(height)) %>% 
+  group_by(ethnicity_cat) %>% select(ethnicity_cat, z_fev1_fvc_ratio) %>% 
+  summarise(z_mean = median(z_fev1_fvc_ratio, na.rm = T),
+            z_5 = quantile(z_fev1_fvc_ratio, probs = .05, na.rm = T),
+            z_95 = quantile(z_fev1_fvc_ratio, probs = .95, na.rm = T))
+
+
+#-------------------------------------------------------------------------------
+# Females
+# Z score for age
+
+Zf_age1 <- respi %>% filter(gender == 0) %>% mutate(age = round(age)) %>% 
+  group_by(age) %>% select(age, z_fev1) %>% 
+  summarise(z_mean = median(z_fev1, na.rm = T),
+            z_5 = quantile(z_fev1, probs = .05, na.rm = T),
+            z_95 = quantile(z_fev1, probs = .95, na.rm = T))
+
+Zf_age2 <- respi %>% filter(gender == 0) %>% mutate(age = round(age)) %>% 
+  group_by(age) %>% select(age, z_fvc) %>% 
+  summarise(z_mean = median(z_fvc, na.rm = T),
+            z_5 = quantile(z_fvc, probs = .05, na.rm = T),
+            z_95 = quantile(z_fvc, probs = .95, na.rm = T))
+
+Zf_age3 <- respi %>% filter(gender == 0) %>% mutate(age = round(age)) %>% 
+  group_by(age) %>% select(age, z_fev1_fvc_ratio) %>% 
+  summarise(z_mean = median(z_fev1_fvc_ratio, na.rm = T),
+            z_5 = quantile(z_fev1_fvc_ratio, probs = .05, na.rm = T),
+            z_95 = quantile(z_fev1_fvc_ratio, probs = .95, na.rm = T))
+
+# Z score for height
+
+Zf_height1 <- respi %>% filter(gender == 0) %>% mutate(height = round(height)) %>% 
+  group_by(height) %>% select(height, z_fev1) %>% 
+  summarise(z_mean = median(z_fev1, na.rm = T),
+            z_5 = quantile(z_fev1, probs = .05, na.rm = T),
+            z_95 = quantile(z_fev1, probs = .95, na.rm = T))
+
+Zf_height2 <- respi %>% filter(gender == 0) %>% mutate(height = round(height)) %>% 
+  group_by(height) %>% select(height, z_fvc) %>% 
+  summarise(z_mean = median(z_fvc, na.rm = T),
+            z_5 = quantile(z_fvc, probs = .05, na.rm = T),
+            z_95 = quantile(z_fvc, probs = .95, na.rm = T))
+
+Zf_height3 <- respi %>% filter(gender == 0) %>% mutate(height = round(height)) %>% 
+  group_by(height) %>% select(height, z_fev1_fvc_ratio) %>% 
+  summarise(z_mean = median(z_fev1_fvc_ratio, na.rm = T),
+            z_5 = quantile(z_fev1_fvc_ratio, probs = .05, na.rm = T),
+            z_95 = quantile(z_fev1_fvc_ratio, probs = .95, na.rm = T))
+
+
+# Z score for ethnic category
+
+Zf_eth1 <- respi %>% filter(gender == 0) %>% # mutate(height = round(height)) %>% 
+  group_by(ethnicity_cat) %>% select(ethnicity_cat, z_fev1) %>% 
+  summarise(z_mean = median(z_fev1, na.rm = T),
+            z_5 = quantile(z_fev1, probs = .05, na.rm = T),
+            z_95 = quantile(z_fev1, probs = .95, na.rm = T))
+
+Zf_eth2 <- respi %>% filter(gender == 0) %>% # mutate(height = round(height)) %>% 
+  group_by(ethnicity_cat) %>% select(ethnicity_cat, z_fvc) %>% 
+  summarise(z_mean = median(z_fvc, na.rm = T),
+            z_5 = quantile(z_fvc, probs = .05, na.rm = T),
+            z_95 = quantile(z_fvc, probs = .95, na.rm = T))
+
+Zf_eth3 <- respi %>% filter(gender == 0) %>% mutate(height = round(height)) %>% 
+  group_by(ethnicity_cat) %>% select(ethnicity_cat, z_fev1_fvc_ratio) %>% 
+  summarise(z_mean = median(z_fev1_fvc_ratio, na.rm = T),
+            z_5 = quantile(z_fev1_fvc_ratio, probs = .05, na.rm = T),
+            z_95 = quantile(z_fev1_fvc_ratio, probs = .95, na.rm = T))
+
+#-------------------------------------------------------------------------------
+```
+
+
+```{r}
+# FEV/age
+p1 <- ggplot(data = respi %>% filter(gender == 1) %>% filter(z_fev1 < 10)) +
+      geom_point(mapping = aes(x = age, y = z_fev1), col = '#bfbfbf', size = 0.1)  +
+      labs(x = "Age years", y = "FEV1 z-score",
+      caption = "Males",
+      alt = "Add alt text to the plot") +
+      theme_classic() +
+      geom_smooth(data=Z_age1, aes(x = age, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+      geom_smooth(data=Z_age1, aes(x = age, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+      geom_smooth(data=Z_age1, aes(x = age, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+      
+p1
+```
+
+
+```{r}
+# FVC/age
+p2 <- ggplot(data = respi %>% filter(z_fvc < 5) %>%  filter(gender == 1)) +
+  geom_point(mapping = aes(x = age, y = z_fvc), col = '#bfbfbf')  +
+  labs(x = "Age years", y = "FVC1 z-score",
+       caption = "Males",
+       alt = "Add alt text to the plot") +
+  theme_classic() +
+  geom_smooth(data=Z_age2, aes(x = age, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_age2, aes(x = age, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_age2, aes(x = age, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+p2
+
+# FEV1/FVC /age
+p3 <- ggplot(data = respi %>% filter(gender == 1)) +
+  geom_point(mapping = aes(x = age, y = z_fev1_fvc_ratio), col = '#bfbfbf')  +
+  labs(x = "Age years", y = "FEV1/FVC z-score",
+       caption = "Males",
+       alt = "Add alt text to the plot") +
+  theme_classic() +
+  geom_smooth(data=Z_age3, aes(x = age, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_age3, aes(x = age, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_age3, aes(x = age, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+p3
+
+
+# FEV/height
+p4 <- ggplot(data = respi %>% filter(gender == 1) %>% filter(z_fev1 < 10)) +
+      geom_point(mapping = aes(x = height, y = z_fev1), col = '#bfbfbf') + 
+      labs(x = "Height cm", y = "FEV1 z-score",
+      caption = "Males",
+      alt = "Add alt text to the plot") +
+      theme_classic() +
+      geom_smooth(data=Z_height1, aes(x = height, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+      geom_smooth(data=Z_height1, aes(x = height, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+      geom_smooth(data=Z_height1, aes(x = height, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+p4
+
+
+# FVC/height
+p5 <- ggplot(data = respi %>% filter(z_fvc < 5) %>% filter(gender == 1)) +
+      geom_point(mapping = aes(x = height, y = z_fvc), col = '#bfbfbf')  +
+      labs(x = "Height cm", y = "FVC1 z-score",
+      caption = "Males",
+      alt = "Add alt text to the plot") +
+      theme_classic() +
+  geom_smooth(data=Z_height2, aes(x = height, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_height2, aes(x = height, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_height2, aes(x = height, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+p5
+
+# FEV1/FVC / height
+p6 <- ggplot(data = respi %>% filter(gender == 1)) +
+      geom_point(mapping = aes(x = height, y = z_fev1_fvc_ratio), col = '#bfbfbf')  +
+      labs(x = "Height cm", y = "FEV1/FVC z-score",
+      caption = "Males",
+      alt = "Add alt text to the plot") +
+      theme_classic() +
+  geom_smooth(data=Z_height3, aes(x = height, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_height3, aes(x = height, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_height3, aes(x = height, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+p6
+
+#-------------------------------------------------------------------------------
+# FEV/age
+pe1 <- ggplot(data = respi %>% filter(gender == 1) %>% filter(z_fev1 < 10)) +
+  geom_point(mapping = aes(x = ethnicity_cat, y = z_fev1), col = '#bfbfbf')  +
+  labs(x = "Ethnicity", y = "FEV1 z-score",
+       caption = "Males",
+       alt = "Add alt text to the plot") +
+  theme_classic() +
+  geom_smooth(data=Z_eth1, aes(x = ethnicity_cat, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_eth1, aes(x = ethnicity_cat, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_eth1, aes(x = ethnicity_cat, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) 
+  #scale_x_discrete(labels = c("Category A", "Category B", "Category C", "Category D"))
+  
+pe1
+
+# FVC/age
+pe2 <- ggplot(data = respi %>% filter(z_fvc < 5) %>%  filter(gender == 1)) +
+  geom_point(mapping = aes(x = ethnicity_cat, y = z_fvc), col = '#bfbfbf')  +
+  labs(x = "Ethnicity", y = "FVC1 z-score",
+       caption = "Males",
+       alt = "Add alt text to the plot") +
+  theme_classic() +
+  geom_smooth(data=Z_eth2, aes(x = ethnicity_cat, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_eth2, aes(x = ethnicity_cat, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_eth2, aes(x = ethnicity_cat, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+pe2
+
+# FEV1/FVC /age
+pe3 <- ggplot(data = respi %>% filter(gender == 1)) +
+  geom_point(mapping = aes(x = ethnicity_cat, y = z_fev1_fvc_ratio), col = '#bfbfbf')  +
+  labs(x = "Ethnicity", y = "FEV1/FVC z-score",
+       caption = "Males",
+       alt = "Add alt text to the plot") +
+  theme_classic() +
+  geom_smooth(data=Z_eth3, aes(x = ethnicity_cat, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_eth3, aes(x = ethnicity_cat, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Z_eth3, aes(x = ethnicity_cat, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+pe3
+
+
+# FEV/height
+pe4 <- ggplot(data = respi %>% filter(gender == 0) %>% filter(z_fev1 < 10)) +
+  geom_point(mapping = aes(x = ethnicity_cat, y = z_fev1), col = '#bfbfbf') + 
+  labs(x = "Ethnicity", y = "FEV1 z-score",
+       caption = "Females",
+       alt = "Add alt text to the plot") +
+  theme_classic() +
+  geom_smooth(data=Zf_eth1, aes(x = ethnicity_cat, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_eth1, aes(x = ethnicity_cat, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_eth1, aes(x = ethnicity_cat, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+pe4
+
+
+# FVC/height
+pe5 <- ggplot(data = respi %>% filter(z_fvc < 5) %>% filter(gender == 1)) +
+  geom_point(mapping = aes(x = ethnicity_cat, y = z_fvc), col = '#bfbfbf')  +
+  labs(x = "Ethnicity", y = "FVC1 z-score",
+       caption = "Females",
+       alt = "Add alt text to the plot") +
+  theme_classic() +
+  geom_smooth(data=Zf_eth2, aes(x = ethnicity_cat, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_eth2, aes(x = ethnicity_cat, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_eth2, aes(x = ethnicity_cat, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+pe5
+```
+
+
+```{r}
+# FEV1/FVC / height
+pe6 <- ggplot(data = respi %>% filter(gender == 1)) +
+  geom_point(mapping = aes(x = ethnicity_cat, y = z_fev1_fvc_ratio), col = '#bfbfbf')  +
+  labs(x = "Ethnicity", y = "FEV1/FVC z-score",
+       caption = "Females",
+       alt = "Add alt text to the plot") + 
+  theme_classic() +
+  geom_smooth(data=Zf_eth3, aes(x = ethnicity_cat, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_eth3, aes(x = ethnicity_cat, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_eth3, aes(x = ethnicity_cat, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+pe6
+
+#-------------------------------------------------------------------------------
+
+# FEV/age
+p1f<- ggplot(data = respi %>% filter(gender == 0) %>% filter(z_fev1 < 10)) +
+      geom_point(mapping = aes(x = age, y = z_fev1), col = '#bfbfbf')  +
+      labs(x = "Age years", y = "FEV1 z-score",
+      caption = "Females",
+      alt = "Add alt text to the plot") +
+      theme_classic() +
+  geom_smooth(data=Zf_age1, aes(x = age, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_age1, aes(x = age, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_age1, aes(x = age, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+
+p1f  
+
+# FVC/age
+p2f <-ggplot(data = respi %>% filter(gender == 0)) +
+  geom_point(mapping = aes(x = age, y = z_fvc), col = '#bfbfbf')  +
+  labs(x = "Age years", y = "FVC1 z-score",
+       caption = "Females",
+       alt = "Add alt text to the plot") +
+  theme_classic() +
+  geom_smooth(data=Zf_age2, aes(x = age, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_age2, aes(x = age, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_age2, aes(x = age, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+
+p2f  
+
+# FEV1/FVC /age
+p3f <-ggplot(data = respi %>% filter(gender == 0)) +
+  geom_point(mapping = aes(x = age, y = z_fev1_fvc_ratio), col = '#bfbfbf')  +
+  labs(x = "Age years", y = "FEV1/FVC z-score",
+       caption = "Females",
+       alt = "Add alt text to the plot") +
+  theme_classic() +
+  geom_smooth(data=Zf_age3, aes(x = age, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_age3, aes(x = age, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_age3, aes(x = age, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+
+p3f
+
+# FEV/height
+p4f <-ggplot(data = respi %>% filter(gender == 0) %>% filter(z_fev1 < 10)) +
+      geom_point(mapping = aes(x = height, y = z_fev1), col = '#bfbfbf') + 
+      labs(x = "Height cm", y = "FEV1 z-score",
+      caption = "Females",
+      alt = "Add alt text to the plot") +
+      theme_classic() +
+  geom_smooth(data=Zf_height1, aes(x = height, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_height1, aes(x = height, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_height1, aes(x = height, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+p4f
+
+# FVC/height
+p5f <-ggplot(data = respi %>% filter(gender == 0)) +
+      geom_point(mapping = aes(x = height, y = z_fvc), col = '#bfbfbf')  +
+      labs(x = "Height cm", y = "FVC1 z-score",
+      caption = "Females",
+      alt = "Add alt text to the plot") +
+      theme_classic() +
+  geom_smooth(data=Zf_height2, aes(x = height, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_height2, aes(x = height, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_height2, aes(x = height, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+p5f
+
+# FEV1/FVC /height
+p6f <-ggplot(data = respi %>% filter(gender == 0)) +
+      geom_point(mapping = aes(x = height, y = z_fev1_fvc_ratio), col = '#bfbfbf')  +
+      labs(x = "Height cm", y = "FEV1/FVC z-score",
+      caption = "Females",
+      alt = "Add alt text to the plot") +
+      theme_classic() +
+  geom_smooth(data=Zf_height3, aes(x = height, y = round(z_mean)), col = 1, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_height3, aes(x = height, y = round(z_5)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0) +
+  geom_smooth(data=Zf_height3, aes(x = height, y = round(z_95)), col = 1, linetype =2, linewidth = 0.6, na.rm = T, level=0)
+p6f
+
+```
+
+
+```{r}
+p1
+p2
+p3
+p4
+p5
+p6
+p1f
+p2f
+p3f
+p4f
+p5f
+p6f
+pe1
+pe2
+pe3
+pe4
+pe5
+pe6
+```
+
